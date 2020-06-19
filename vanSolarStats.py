@@ -1,17 +1,15 @@
 #!/usr/bin/python3
 import minimalmodbus
 import json
-import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 from datetime import datetime
 
 instrument = minimalmodbus.Instrument('/dev/ttyUSB0', 1)  # port name, slave address (in decimal)
-
 instrument.serial.baudrate = 9600
 instrument.serial.bytesize = 8
 instrument.serial.parity = minimalmodbus.serial.PARITY_NONE
 instrument.serial.stopbits = 2
 instrument.serial.timeout  = 1
-
 instrument.address = 1  # this is the slave address number
 instrument.mode = minimalmodbus.MODE_RTU   # rtu or ascii mode
 instrument.clear_buffers_before_each_transaction = True
@@ -20,6 +18,8 @@ instrument.clear_buffers_before_each_transaction = True
 
 broker_url = '192.168.69.106'
 broker_port = 1883
+broker_auth = { 'username':"sammy", 'password':"sammy" }
+broker_tls = {'ca_certs': ""}
 
 mqttPublishPayload = json.dumps({
 	"auxSoc": instrument.read_register(256),
@@ -40,15 +40,19 @@ mqttPublishPayload = json.dumps({
 	"timestamp": str(datetime.now())
 })
 
-#mqttPublishPayload = json.dumps(mqttPublishPayload)
+# print (mqttPublishPayload)
 
 try:
-	client = mqtt.Client()
-	client.connect(broker_url, broker_port)
-	client.publish(
+	publish.single(
 		topic="van/solar",
 		payload=mqttPublishPayload,
-		retain=True
+		retain=True,
+        hostname=broker_url,
+        port=broker_port,
+        auth=broker_auth,
+		tls=broker_tls,
+        client_id="chip1",
+        qos=0
 	)
 except:
 	print ("Error")
