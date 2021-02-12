@@ -67,7 +67,7 @@ mqttPublishPayload = json.dumps({
 	"chargingBoost": chargingBoost,
 	"chargingFloat": chargingFloat,
 	"chargingLimited": chargingLimited,
-	"chargingAlt": chargingAlt
+	"chargingAlt": chargingAlt,
 	"errorCtrlOverTemp2": errorCtrlOverTemp2,
 	"errorAltInputOverCurrent": errorAltInputOverCurrent,
 	"errorAltInputOverVolt": errorAltInputOverVolt,
