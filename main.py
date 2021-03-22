@@ -44,7 +44,12 @@ errorSolInputTooHigh = ( errorCodesHigh & 0b0000000010000000) > 0
 errorSolInputOverVolt = ( errorCodesHigh & 0b0000001000000000) > 0
 errorSolReversePolarity = ( errorCodesHigh & 0b0001000000000000) > 0
 
+
+# Device 
+Device = instrument.read_string(0xc,8)
+
 mqttPublishPayload = json.dumps({
+	"Device": Device,
 	"auxSoc": instrument.read_register(256),
 	"auxVoltage": instrument.read_register(257,1),
 	"maxCharge": instrument.read_register(258,2),
