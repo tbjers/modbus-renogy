@@ -1,2 +1,2 @@
 test-*
-mqttConfig.py
+configMqtt.py
