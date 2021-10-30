@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import main
 import paho.mqtt.publish as publish
-import mqttConfig as config
+import configMqtt as config
 
 try:
     publish.single(
