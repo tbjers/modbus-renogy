@@ -62,16 +62,16 @@ payload = json.dumps({
 	"auxSoc": instrument.read_register(0x100), # Auxilliary battery State of charge
 	"auxVoltage": instrument.read_register(0x101,1),
 	"maxCharge": instrument.read_register(0x102,2), # combined charging current from solar+alternator to the auxilliary battery
-	"controllerTemp": tempController,
-	"auxTemp": tempAuxBatt,
+	"controllerTemp": int(tempController),
+	"auxTemp": int(tempAuxBatt),
 	"altVoltage": instrument.read_register(0x104,1),
 	"altAmps": instrument.read_register(0x105,2),
 	"altWatts": instrument.read_register(0x106),
 	"solVoltage": instrument.read_register(0x107,1),
 	"solAmps": instrument.read_register(0x108,2),
 	"solWatts": instrument.read_register(0x109),
-	"lowDailyVolts": instrument.read_register(0x10b),
-	"highDailyVolts": instrument.read_register(0x10c),
+	"lowDailyVolts": instrument.read_register(0x10b)/10, # values returned need to be divided by 10 to transpose to Volts
+	"highDailyVolts": instrument.read_register(0x10c)/10, # values returned need to be divided by 10 to transpose to Volts
 	"highDailyCurrent": instrument.read_register(0x10d), # solar+alternator
 	"highDailyPower": instrument.read_register(0x10f), # solar+alternator
 	"highAccumAh": instrument.read_register(0x111), # solar+alternator
