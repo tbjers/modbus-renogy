@@ -77,7 +77,7 @@ payload = json.dumps({
 	"highAccumAh": instrument.read_register(0x111), # solar+alternator
 	"dailyGeneratedPower": instrument.read_register(0x113), # solar+alternator
 	"totalWorkingDays": instrument.read_register(0x115),
-	"totalOverdischaredBattery": instrument.read_register(0x116),
+	"totalOverdischargedBattery": instrument.read_register(0x116),
 	"totalChargedBattery": instrument.read_register(0x117),
 	"timestamp": str(datetime.now()),
 	"chargingNone": str(chargingNone),
